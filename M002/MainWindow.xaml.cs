@@ -4,10 +4,7 @@ namespace M002;
 
 public partial class MainWindow : Window
 {
-	public MainWindow()
-	{
-		InitializeComponent();
-	}
+	public MainWindow() => InitializeComponent();
 
 	private void CheckBox_Checked(object sender, RoutedEventArgs e)
 	{

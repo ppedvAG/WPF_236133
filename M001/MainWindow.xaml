@@ -1,15 +1,27 @@
 ﻿<Window x:Class="WPF_2024_01_30.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="800"
+        Title="MainWindow" Height="450" Width="300"
 		WindowStartupLocation="CenterScreen">
-	<Grid Margin="5, 0">
-		<Grid.Background>
+	<StackPanel Margin="5, 0">
+		<StackPanel.Background>
 			<LinearGradientBrush>
 				<GradientStop Offset="0" Color="Aqua"></GradientStop>
 				<GradientStop Offset="0.5" Color="LightGreen"></GradientStop>
 				<GradientStop Offset="1" Color="Black"></GradientStop>
 			</LinearGradientBrush>
-		</Grid.Background>
-	</Grid>
+		</StackPanel.Background>
+		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+			<TextBlock Text="Vorname: "/>
+			<TextBox/>
+		</UniformGrid>
+		<UniformGrid Columns="2" Margin="0, 0, 0, 5">
+			<TextBlock Text="Nachname: "/>
+			<TextBox/>
+		</UniformGrid>
+		<UniformGrid Columns="2">
+			<Button Content="OK" Margin="0, 0, 2.5, 0"/>
+			<Button Content="Abbrechen" Margin="2.5, 0, 0, 0"/>
+		</UniformGrid>
+	</StackPanel>
 </Window>

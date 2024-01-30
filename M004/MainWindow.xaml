@@ -1,0 +1,66 @@
+﻿<Window x:Class="M004.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M004"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="300"
+		WindowStartupLocation="CenterScreen"
+		FontSize="20">
+	<Window.Resources>
+		<local:DoubleToThicknessConverter x:Key="DT"/>
+	</Window.Resources>
+	<StackPanel>
+		<!--Property Binding-->
+		<!--Ermöglicht, 2 DependencyProperties aneinander zu binden (= 2 UI Komponenten)-->
+		<!--Bindings müssen immer am Ziel definiert werden (wo der Wert verwendet werden soll)-->
+		<Slider Name="Slide"/>
+		<TextBlock>
+			<TextBlock.Text>
+				<Binding ElementName="Slide" Path="Value"/> <!--Langform eines Bindings-->
+			</TextBlock.Text>
+		</TextBlock>
+		<TextBlock Text="{Binding ElementName=Slide, Path=Value}"/> <!--Kurzform-->
+		<!--Binding-Modes: Gibt die Richtung der Bindung an-->
+		<!--In eine Richtung, oder von beiden Elementen-->
+		<!--Standard: TwoWay-->
+		<TextBox Text="{Binding ElementName=Slide, Path=Value, Mode=TwoWay}" Name="TB"/>
+		<Button Content="Slider aktualisieren" Click="Button_Click"/>
+		
+		<!--UpdateSourceTrigger: Gibt an, wann das Binding aktualisiert wird-->
+		<!--Standard: LostFocus-->
+		<!--PropertyChanged: Wenn sich der Wert verändert-->
+		<!--Explicit: Muss im Code Behind gefeuert werden-->
+		
+		<!--Converter-->
+		<!--Ermöglicht, die Konvertierung von inkompatiblen Datentypen bei einem Bindung-->
+		<!--z.B.: Slider Value (double), Margin (Thickness)-->
+		<Slider Name="MarginSlider" Maximum="100"/>
+		<Button Margin="{Binding ElementName=MarginSlider, Path=Value, Converter={StaticResource DT}}" Content="Margin"/>
+		<!--StaticResource: Ermöglicht Zugriff auf globale Resourcen-->
+		<!--Diese Resourcen müssen in <Element.Resources> mit einem Key definiert werden-->
+			
+		<!--Multibinding-->
+		<!--Ein Bindings auf mehrere Properties-->
+		<!--Benötigt einen Converter-->
+		<Slider Name="MarginSliderL" Maximum="100"/>
+		<Slider Name="MarginSliderT" Maximum="100"/>
+		<Slider Name="MarginSliderR" Maximum="100"/>
+		<Slider Name="MarginSliderB" Maximum="100"/>
+		<Button Content="Margin">
+			<Button.Margin>
+				<MultiBinding>
+					<Binding ElementName="MarginSliderL" Path="Value"/>
+					<Binding ElementName="MarginSliderT" Path="Value"/>
+					<Binding ElementName="MarginSliderR" Path="Value"/>
+					<Binding ElementName="MarginSliderB" Path="Value"/>
+					<MultiBinding.Converter>
+						<local:FourValuesToThicknessConverter/>
+					</MultiBinding.Converter>
+				</MultiBinding>
+			</Button.Margin>
+		</Button>
+		<Button/>
+	</StackPanel>
+</Window>

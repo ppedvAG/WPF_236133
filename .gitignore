@@ -396,3 +396,22 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+M015/Models/Region.cs
+M015/Models/Product.cs
+M015/Models/OrderDetail.cs
+M015/Models/Order.cs
+M015/Models/NorthwindContext.cs
+M015/Models/Employee.cs
+M015/Models/CustomerDemographic.cs
+M015/Models/Customer.cs
+M015/Models/Category.cs
+M015/MainWindow.xaml.cs
+M015/MainWindow.xaml
+M015/M015.csproj
+M015/efpt.config.json
+M015/AssemblyInfo.cs
+M015/App.xaml.cs
+M015/App.xaml
+M015/Models/Shipper.cs
+M015/Models/Supplier.cs
+M015/Models/Territory.cs
