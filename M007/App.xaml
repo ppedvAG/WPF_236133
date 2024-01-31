@@ -1,0 +1,19 @@
+﻿<Application x:Class="M007.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:M007"
+             StartupUri="MainWindow.xaml">
+	<Application.Resources>
+		<ControlTemplate TargetType="Button" x:Key="BTNTemplate">
+			<Grid>
+				<Border BorderThickness="2" BorderBrush="Orange" CornerRadius="10">
+					<Rectangle Fill ="{TemplateBinding Background}" RadiusX="10" RadiusY="10"/>
+				</Border>
+				<ContentPresenter VerticalAlignment="Center" HorizontalAlignment="Center"/>
+			</Grid>
+		</ControlTemplate>
+		<!--<Style TargetType="Button">
+			<Setter Property="Template" Value="{StaticResource BTNTemplate}"/>
+		</Style>-->
+	</Application.Resources>
+</Application>
