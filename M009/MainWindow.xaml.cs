@@ -2,7 +2,6 @@
 
 namespace M009;
 
-
 public partial class MainWindow : Window
 {
 	public BindableProperty<string> TextContainer { get; set; } = new();

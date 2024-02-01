@@ -10,4 +10,12 @@ public partial class MainWindow : Window
 	{
 		InitializeComponent();
 	}
+
+	//ColorPicker als UserControl
+	//ColorPicker in das MainWindow einbinden
+	//Per Button anzeigen (vorher Collapsed)
+	//Color binden an die Person
+	//Farbe wieder laden, wenn der ColorPicker nochmal geöffnet wird
+	//ComboBox Auswahl zu ColorPicker Color
+
 }
