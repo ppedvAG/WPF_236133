@@ -3,6 +3,7 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:local="clr-namespace:M001"
 		xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
 		Title="MainWindow" Height="450" Width="300"
 		WindowStartupLocation="CenterScreen">
 	<StackPanel Margin="5, 0">
