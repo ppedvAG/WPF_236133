@@ -1,7 +1,9 @@
-﻿<Window x:Class="WPF_2024_01_30.MainWindow"
+﻿<Window x:Class="M001.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="MainWindow" Height="450" Width="300"
+        xmlns:local="clr-namespace:M001"
+		xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+		Title="MainWindow" Height="450" Width="300"
 		WindowStartupLocation="CenterScreen">
 	<StackPanel Margin="5, 0">
 		<StackPanel.Background>
@@ -23,5 +25,8 @@
 			<Button Content="OK" Margin="0, 0, 2.5, 0"/>
 			<Button Content="Abbrechen" Margin="2.5, 0, 0, 0"/>
 		</UniformGrid>
+
+		<ComboBox ItemsSource="{local:EnumerationTest {x:Type sys:DayOfWeek}}" SelectedValue="{Binding wochentag.Value}"/>
+		<TextBlock Text="{Binding wochentag.Value}"/>
 	</StackPanel>
 </Window>

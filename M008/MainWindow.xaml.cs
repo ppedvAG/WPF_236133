@@ -1,10 +1,10 @@
 ﻿using System.Windows;
 
-namespace M001;
+namespace M008;
 
 public partial class MainWindow : Window
 {
-	public BindableProperty<DayOfWeek> wochentag { get; set; } = new();
+	public Person p { get; set; } = new();
 
 	public MainWindow()
 	{

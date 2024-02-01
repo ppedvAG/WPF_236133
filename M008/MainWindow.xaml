@@ -1,0 +1,75 @@
+﻿<Window x:Class="M008.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M008"
+		xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		WindowStartupLocation="CenterScreen" FontSize="30">
+	<Window.Resources>
+		<!--ErrorTemplate-->
+		<!--Ermöglicht, die Darstellung des Fehlers zu verändern-->
+		<!--Muss mit Validation.ErrorTemplate eingebunden werden-->
+		<ControlTemplate x:Key="ErrorTemplate">
+			<StackPanel>
+				<Border BorderBrush="Aqua" BorderThickness="3">
+					<AdornedElementPlaceholder Name="AEP"/>
+					<!--AdornedElementPlaceholder: Stellt den Platzhalter für das Fehlerelement dar (ähnlich wie ContentPresenter)-->
+				</Border>
+				<Popup IsOpen="True">
+					<!--<ItemsControl ItemsSource="{Binding ElementName=AEP, Path=AdornedElement.(Validation.Errors)}">
+						<ItemsControl.ItemTemplate>
+							<DataTemplate DataType="ValidationError">
+								<TextBlock Text="{TemplateBinding Name}" Background="Red"/>
+							</DataTemplate>
+						</ItemsControl.ItemTemplate>
+					</ItemsControl>-->
+					<TextBlock Text="{Binding ElementName=AEP, Path=AdornedElement.(Validation.Errors)[0].ErrorContent}" Background="Red"/>
+				</Popup>
+			</StackPanel>
+		</ControlTemplate>
+	</Window.Resources>
+	<StackPanel Margin="5">
+		<StackPanel.Resources>
+			<local:ValidationRuleCollection x:Key="Rules">
+				<local:LetterValidation/>
+				<local:LengthValidation/>
+			</local:ValidationRuleCollection>
+		</StackPanel.Resources>
+		
+		<!--Validation-->
+		<!--Ermöglicht das Abfangen von Fehlern in Eingabedaten des Benutzers-->
+		<!--3 Möglichkeiten: -->
+		<!--Mit ValidationRules (eigene Klasse(n))-->
+		<!--ValidateOnException-->
+		<!--ValidateOnDataErrors mit IDataError Interface-->
+		<TextBox Validation.ErrorTemplate="{StaticResource ErrorTemplate}">
+			<Binding Path="p.Name">
+				<Binding.ValidationRules>
+					<local:LetterValidation/>
+					<local:LengthValidation/>
+				</Binding.ValidationRules>
+			</Binding>
+		</TextBox>
+		<Button Content="Test"/>
+		
+		<!--ValidateOnException-->
+		<!--Wenn beim Binding eine Exception auftritt, wird der Text der Exception als ErrorContent festgelegt-->
+		<TextBox Text="{Binding p.Alter, ValidatesOnExceptions=True, UpdateSourceTrigger=PropertyChanged}"
+				 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+
+		<!--ValidateOnDataErrors-->
+		<!--Die Modelklasse benötigt das IDataError Interface-->
+		<!--Benötigt auch noch einen Indexer-->
+		<TextBox Text="{Binding p.Adresse, ValidatesOnDataErrors=True, UpdateSourceTrigger=PropertyChanged}"
+				 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+		
+		<!--Eigene MarkupExtension-->
+		<!--Ermöglicht die Wiederverwendung von Validation Rule Listen-->
+		<TextBox Text="{local:ValidationRuleList {Binding p.Name, UpdateSourceTrigger=PropertyChanged}, {StaticResource Rules}}"
+				 Validation.ErrorTemplate="{StaticResource ErrorTemplate}"/>
+	</StackPanel>
+</Window>
