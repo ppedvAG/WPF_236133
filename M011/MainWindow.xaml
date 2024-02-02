@@ -1,0 +1,51 @@
+﻿<Window x:Class="M011.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M011"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen">
+	<Window.Resources>
+		<ControlTemplate x:Key="CT" TargetType="ContentControl">
+			<Border BorderBrush="Aqua" BorderThickness="2">
+				<Grid>
+					<TextBlock Text="{TemplateBinding Content}"/> <!--Hier ist zur Editorzeit nicht bekannt, was Content sein wird-->
+					<TextBlock Text="{Binding RelativeSource={RelativeSource Mode=TemplatedParent}, Path=Content}"/> <!--Langform zu oben-->
+				</Grid>
+			</Border>
+		</ControlTemplate>
+	</Window.Resources>
+	<StackPanel>
+		<!--Relative Sources-->
+		<!--Ermöglicht, das Binden an Quellen die zur Editorzeit unbekannt sind-->
+		<Button Template="{StaticResource CT}"/>
+		
+		<!--FindAncestor-->
+		<!--Ermöglicht, auf Parents zuzugreifen anhand von einem Typen und Schritten-->
+		<Grid Background="Aqua" Height="100">
+			<Grid Background="LightGreen" Height="60">
+				<Grid Background="Orange" Height="30">
+					<Button Background="{Binding RelativeSource={RelativeSource AncestorType={x:Type Grid}, AncestorLevel=1}, Path=Background}" Content="Test"/>
+				</Grid>
+			</Grid>
+		</Grid>
+		
+		<!--Self-->
+		<!--Ermöglicht, eine Bindung auf das Element selbst-->
+		<Rectangle Width="{Binding ElementName=RectSlider, Path=Value}"
+				   Height="{Binding RelativeSource={RelativeSource Self}, Path=Width}" Fill="Violet"/>
+		<Slider Minimum="0" Maximum="100" Name="RectSlider"/>
+		
+		<!--PreviousData-->
+		<!--Passt das derzeitige Element an das vorherige Element an-->
+		<ListBox Name="LB">
+			<ListBox.ItemTemplate>
+				<DataTemplate>
+					<TextBlock Text="{Binding RelativeSource={RelativeSource Mode=PreviousData}, Path=Text}"/>
+				</DataTemplate>
+			</ListBox.ItemTemplate>
+		</ListBox>
+	</StackPanel>
+</Window>

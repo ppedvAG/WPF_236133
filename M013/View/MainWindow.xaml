@@ -1,0 +1,27 @@
+﻿<Window x:Class="M013.View.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:M013"
+		xmlns:vm="clr-namespace:M013.ViewModel"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800"
+		WindowStartupLocation="CenterScreen">
+	<Window.DataContext>
+		<vm:MainWindowViewModel/>
+	</Window.DataContext>
+    <StackPanel>
+		<!--MVVM - Model-View-ViewModel-->
+		<!--Strikte Trennung von UI und Backendcode-->
+		<!--Alle XAML Files werden in View abgelegt-->
+		<!--In Model liegen die Datenklassen-->
+		<!--In ViewModel liegen die Verbindungsstücke zwischen Model und View-->
+		
+		<!--Die View hat als DataContext ihre dazugehörige ViewModel Klasse und interagiert über Bindings und Commands mit dem VM-->
+		<TextBlock Text="{Binding P.Value.Name}"/>
+		<TextBlock Text="{Binding P.Value.Alter}"/>
+
+		<Button Content="Neue Person" Command="{Binding NeuePersonCommand}"/>
+	</StackPanel>
+</Window>

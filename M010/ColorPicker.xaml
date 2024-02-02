@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="M010.ColorPicker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:conv="clr-namespace:M010.Converter"
+		xmlns:local="clr-namespace:M010"
+		FontSize="18"
+		Name="UC">
+	<UserControl.Resources>
+		<conv:ColorToSliderValueConverter x:Key="CSV"/>
+		<conv:ColorToBrushConverter x:Key="CB"/>
+	</UserControl.Resources>
+	<StackPanel Margin="10, 0, 10, 10">
+		<!--UserControls-->
+		<!--"Eigene" UI Elemente definieren-->
+		<!--Auf Elemente innerhalb eines UserControls kann von außen nicht mehr zugegriffen werden-->
+		<!--Über Dependency Properties können Werte von innen nach außen weitergegeben werden-->
+		<!--<local:SliderTextBox Text="R" Color="Red" x:Name="RSlider" SliderValueChanged="RSlider_SliderValueChanged" local:ColorPicker.Max="200"/>-->
+		<!--WICHTIG: Bei UserControls keinen DataContext setzen, Properties können mit ElementName und Path angegriffen werden-->
+		<!--Alle Properties sind DependencyProperties, und benötigen deshalb keinen DataContext-->
+		<local:SliderTextBox Text="R" Color="Red" x:Name="RSlider"
+							 SliderValue="{Binding ElementName=UC, Path=SelectedColor, Converter={StaticResource CSV}, ConverterParameter={x:Static local:SliderColor.Red}}"/>
+		<local:SliderTextBox Text="G" Color="Green" x:Name="GSlider"
+							 SliderValue="{Binding ElementName=UC, Path=SelectedColor, Converter={StaticResource CSV}, ConverterParameter={x:Static local:SliderColor.Green}}"/>
+		<local:SliderTextBox Text="B" Color="Blue" x:Name="BSlider"
+							 SliderValue="{Binding ElementName=UC, Path=SelectedColor, Converter={StaticResource CSV}, ConverterParameter={x:Static local:SliderColor.Blue}}"/>
+		<local:SliderTextBox Text="A" Color="Black" x:Name="ASlider"
+							 SliderValue="{Binding ElementName=UC, Path=SelectedColor, Converter={StaticResource CSV}, ConverterParameter={x:Static local:SliderColor.Alpha}}"/>
+		<TextBlock Text="{Binding ElementName=Col, Path=Fill, StringFormat='Picked color: {0}'}"
+				   TextAlignment="Center"
+				   Margin="5"/>
+
+		<Border BorderBrush="Black" BorderThickness="2" Width="100" Height="100">
+			<Rectangle Width="100" Height="100" Name="Col">
+				<Rectangle.Fill>
+					<MultiBinding>
+						<MultiBinding.Bindings>
+							<Binding ElementName="RSlider" Path="SliderValue"/>
+							<Binding ElementName="GSlider" Path="SliderValue"/>
+							<Binding ElementName="BSlider" Path="SliderValue"/>
+							<Binding ElementName="ASlider" Path="SliderValue"/>
+						</MultiBinding.Bindings>
+						<MultiBinding.Converter>
+							<conv:FourValueToColorConverter/>
+						</MultiBinding.Converter>
+					</MultiBinding>
+				</Rectangle.Fill>
+			</Rectangle>
+		</Border>
+	</StackPanel>
+</UserControl>

@@ -1,0 +1,37 @@
+﻿<UserControl x:Class="M010.SliderTextBox"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:M010"
+			 xmlns:conv="clr-namespace:M010.Converter"
+			 x:Name="Self">
+	<UserControl.Resources>
+		<conv:ColorToBrushConverter x:Key="CBC"/>
+	</UserControl.Resources>
+	<Border BorderBrush="{Binding ElementName=Self, Path=Color, Converter={StaticResource CBC}}"
+			BorderThickness="2"
+			Margin="0, 0, 0, 5"
+			Padding="3">
+		<Grid>
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="30"/>
+				<ColumnDefinition/>
+				<ColumnDefinition Width="50"/>
+			</Grid.ColumnDefinitions>
+			<TextBlock Text="{Binding ElementName=Self, Path=Text, StringFormat=' {0}:'}"
+					   Foreground="{Binding ElementName=Self, Path=Color, Converter={StaticResource CBC}}"
+					   TextAlignment="Center"/>
+			<Slider Grid.Column="1"
+					Name="ColorSlider"
+					VerticalAlignment="Center"
+					Margin="0, 0, 5, 0"
+					
+					TickFrequency="1"
+					IsSnapToTickEnabled="True"
+					Minimum="0"
+					Maximum="{Binding ElementName=Self, Path=Max.Value}"
+					Value="{Binding ElementName=Self, Path=SliderValue}"/>
+			<TextBox Grid.Column="2"
+					 Text="{Binding ElementName=ColorSlider, Path=Value}"/>
+		</Grid>
+	</Border>
+</UserControl>

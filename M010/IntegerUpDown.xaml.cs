@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using System.ComponentModel;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 
@@ -16,7 +17,10 @@ public partial class IntegerUpDown : UserControl
 	public int Counter
 	{
 		get => (int) GetValue(IntegerUpDown.CounterProperty);
-		set => SetValue(IntegerUpDown.CounterProperty, value);
+		set
+		{
+			SetValue(IntegerUpDown.CounterProperty, value);
+		}
 	}
 
 	public static readonly DependencyProperty CounterProperty =
@@ -37,6 +41,7 @@ public partial class IntegerUpDown : UserControl
 	public static readonly DependencyProperty TextFontSizeProperty =
 		DependencyProperty.Register("TextFontSize", typeof(int), typeof(IntegerUpDown), new PropertyMetadata(20));
 
+	#region Event Up
 	//Events weitergeben (DP für Events)
 	//Hier muss das Event als die Hintergrundvariable definiert werden mit add und remove
 	//add und remove = get und set
@@ -57,11 +62,15 @@ public partial class IntegerUpDown : UserControl
 		EventManager.RegisterRoutedEvent
 		(
 			"ButtonUpClicked",
-			RoutingStrategy.Direct,
+			RoutingStrategy.Bubble,
 			typeof(RoutedEventHandler),
 			typeof(IntegerUpDown)
 		);
 
+	private void UpClicked(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(ButtonUpClickedProperty));
+	#endregion
+
+	#region Event Down
 	public event RoutedEventHandler ButtonDownClicked
 	{
 		add => AddHandler(ButtonDownClickedProperty, value);
@@ -72,19 +81,11 @@ public partial class IntegerUpDown : UserControl
 		EventManager.RegisterRoutedEvent
 		(
 			"ButtonDownClicked",
-			RoutingStrategy.Direct,
+			RoutingStrategy.Bubble,
 			typeof(RoutedEventHandler),
 			typeof(IntegerUpDown)
 		);
 
-
-	private void Button_Click(object sender, RoutedEventArgs e)
-	{
-		Counter++;
-	}
-
-	private void Button_Click_1(object sender, RoutedEventArgs e)
-	{
-		Counter--;
-	}
+	private void DownClicked(object sender, RoutedEventArgs e) => RaiseEvent(new RoutedEventArgs(ButtonDownClickedProperty));
+	#endregion
 }

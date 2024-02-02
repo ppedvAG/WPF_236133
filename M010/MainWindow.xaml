@@ -13,5 +13,7 @@
 							 Height="40" TextFontSize="30"
 							 ButtonUpClicked="IntegerUpDown_ButtonUpClicked"
 							 ButtonDownClicked="IntegerUpDown_ButtonDownClicked"/>
+		<local:ColorPicker x:Name="TheOnlyColorPicker" Margin="0, 10, 0, 0" SelectedColor="{Binding TheColor.Value}"/>
+		<TextBlock Text="{Binding TheColor.Value}" TextAlignment="Center"/>
 	</StackPanel>
 </Window>
