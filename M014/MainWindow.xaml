@@ -1,0 +1,41 @@
+﻿<Window x:Class="M014.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:M014"
+        Title="MainWindow" Height="450" Width="800"
+		DataContext="{Binding RelativeSource={RelativeSource Self}}"
+		WindowStartupLocation="CenterScreen">
+    <Grid>
+		<TreeView ItemsSource="{Binding personen.Value}">
+			<TreeView.ItemTemplate>
+				<DataTemplate DataType="local:Person">
+					<TreeViewItem Header="{Binding ID}" ItemsSource="{Binding Job}">
+						<TextBlock Text="{Binding Vorname}"/>
+						<TextBlock Text="{Binding Nachname}"/>
+						<TreeViewItem Header="Beruf" DataContext="{Binding Job}">
+							<TextBlock Text="{Binding Gehalt}"/>
+							<TextBlock Text="{Binding Einstellungsdatum}"/>
+						</TreeViewItem>
+						<TreeViewItem Header="Hobbies" DataContext="{Binding Hobbies}">
+							<ItemsControl ItemsSource="{Binding}">
+								<ItemsControl.ItemTemplate>
+									<DataTemplate>
+										<TreeViewItem Header="{Binding}" DataContext="{Binding}">
+											<ItemsControl ItemsSource="{Binding}">
+												<ItemsControl.ItemTemplate>
+													<DataTemplate>
+														<TextBlock Text="{Binding}"/>
+													</DataTemplate>
+												</ItemsControl.ItemTemplate>
+											</ItemsControl>
+										</TreeViewItem>
+									</DataTemplate>
+								</ItemsControl.ItemTemplate>
+							</ItemsControl>
+						</TreeViewItem>
+					</TreeViewItem>
+				</DataTemplate>
+			</TreeView.ItemTemplate>
+		</TreeView>
+    </Grid>
+</Window>
