@@ -12,14 +12,15 @@
 		<vm:MainWindowViewModel/>
 	</Window.DataContext>
 	<DockPanel>
-		<ProgressBar DockPanel.Dock="Bottom" Height="30"
+		<Button Command="{Binding SortByCountryCommand}" Content="Sortieren" DockPanel.Dock="Bottom"/>
+		<!--<ProgressBar DockPanel.Dock="Bottom" Height="30"
 					 Value="{Binding ProgressValue.Value}"
-					 Maximum="{Binding ProgressMaximum.Value}"/>
+					 Maximum="{Binding ProgressMaximum.Value}"/>-->
 		<StackPanel Width="200" Margin="5" DockPanel.Dock="Left">
 			<Button Content="Kunden laden" Command="{Binding LoadCustomersCommand}"/>
 			<Button Content="KundenUmsatz laden" Command="{Binding LoadKundenUmsatzCommand}"/>
 		</StackPanel>
-		<DataGrid ItemsSource="{Binding ku}"
+		<DataGrid ItemsSource="{Binding customers.CollectionToSort.Value}"
 				  EnableRowVirtualization="True"
 				  EnableColumnVirtualization="True"
 				  VirtualizingPanel.ScrollUnit="Item"

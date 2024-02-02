@@ -9,7 +9,7 @@ public class MainWindowViewModel : ViewModelBase
 {
 	public NorthwindContext DB { get; set; } = new(); //Ermöglicht DB Zugriff
 
-	public ObservableCollection<Customer> customers { get; set; }
+	public SortWrapper<Customer> customers { get; set; } = new();
 
 	public ObservableCollection<KundenUmsatz> ku { get; set; }
 
@@ -17,7 +17,7 @@ public class MainWindowViewModel : ViewModelBase
 
 	public CustomCommand LoadKundenUmsatzCommand { get; set; }
 
-	public CustomCommand ScrollCommand { get; set; }
+	public CustomCommand SortByCountryCommand { get; set; }
 
 	public BindableProperty<int> ProgressValue { get; set; } = new();
 
@@ -40,11 +40,12 @@ public class MainWindowViewModel : ViewModelBase
 		//dbcontext und model klassen erzeugen lassen
 		//objekt von der context klasse erstellen und die dbsets per linq ansprechen
 
-		customers = new ObservableCollection<Customer>();
 		ku = new();
 
 		LoadCustomersCommand = new(LoadCustomers);
 		LoadKundenUmsatzCommand = new(LoadKundenUmsatz);
+		SortByCountryCommand = new((o) => customers.Order(e => e.Country));
+		SortByCountryCommand = new((o) => customers.Where(e => e.Country == "UK"));
 
 		//IQueryable<Customer> customers = db.Customers.Where(e => e.Country == "UK"); //Hier wird nur das SQL-Statement vorbereitet
 		//var customers = db.Customers.Where(e => e.Country == "UK").ToListAsync(); //Hier werden tatsächlich die Daten geholt
@@ -58,7 +59,7 @@ public class MainWindowViewModel : ViewModelBase
 	private void LoadCustomers(object o)
 	{
 		foreach (Customer c in DB.Customers)
-			customers.Add(c);
+			customers.CollectionToSort.Value.Add(c);
 	}
 
 	private async void LoadKundenUmsatz(object o)
